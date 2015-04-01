@@ -1,29 +1,116 @@
-# README #
+This package helps you get read access to your Umbraco data in a strongly typed way.  
+This can be useful when you need to returns some of your content through an API controller for example.
 
-This README would normally document whatever steps are necessary to get your application up and running.
+## Get the package ##
 
-### What is this repository for? ###
+You can install the package from [nuget](https://www.nuget.org/packages/uTyped) using the following command in the Package Manager Console:
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+`Install-Package uTyped`
 
-### How do I get set up? ###
+## Using the default mapping
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+The easiest and quickest way to get setup is to use AutoMapper (this library is already installed with Umbraco).  
+You will have to create your Models first. For example:
 
-### Contribution guidelines ###
+	public class Product
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string ShortName { get; set; }
+    }
+	
+And then once the application has started, you can add the AutoMapper configuration:
 
-* Writing tests
-* Code review
-* Other guidelines
+    protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
+    {
+        //Initialize AutoMapper
+        Mapper.Initialize(cfg => cfg.AddProfile<UmbracoProfile<Product>>());
+    }
+	
+We are using a profile in this example but this isn't mandatory. You could as well create your map and add the resolver for all properties:
 
-### Who do I talk to? ###
+    protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
+    {
+        //Initialize AutoMapper
+		Mapper.CreateMap<IPublishedContent, Product>()
+			.ForAllMembers(opt => opt.ResolveUsing<PropertyResolver>());
+    }
+	
+Once the setup is done, you can access your data from your controller:
 
-* Repo owner or admin
-* Other community or team contact
+	public class MyController : UmbracoApiController
+    {
+        private readonly UmbracoRepository _repo;
+
+        public TestController()
+        {
+            _repo = new UmbracoRepository(Umbraco);
+        }
+
+        public IEnumerable<Product> GetAll()
+        {
+            return _repo.GetAll<Product>();
+        }
+
+        public Product Get(int id)
+        {
+            return _repo.GetById<Product>(id);
+        }
+    }
+	
+Now if you go to http://yourwebsite/umbraco/api/test/getall you should be able to see all your products.
+
+## More information
+
+By default, `_repo.GetAll<T>()` creates the xPath using the name of the class. If your data is nested, you can pass a different xPath:
+
+	public IEnumerable<Product> GetAll()
+	{
+		return _repo.GetAll<Product>("//Data/Products");
+	}
+	
+## Using a different mapping
+
+All the methods can take a custom `Func<IPublishedContent, T>()` to allow you to skip AutoMapper if you fell like it.
+
+## Resolvers
+
+We've added a bunch of resolvers we often use to help you.  
+For example, if your product Model is upgraded to:
+
+	public class Product
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string ShortName { get; set; }
+		public string[] Images { get; set; }
+    }
+	
+You will have to use the `MultiMediaResolver` for the `Images` property.  
+Using the AutoMapper profile:
+
+    public class ProductProfile : UmbracoProfile<Product>
+    {
+        private readonly UmbracoHelper _umbracoHelper;
+
+        public ProductProfile(UmbracoHelper umbracoHelper)
+        {
+            _umbracoHelper = umbracoHelper;
+        }
+
+        protected override void Configure()
+        {
+            Mapper.CreateMap<IPublishedContent, Product>()
+                .ForMember(dest => dest.Images, opt => opt.ResolveUsing(new MediaResolver(_umbracoHelper)));
+
+            base.Configure();
+        }
+    }
+	
+And once again initialize AutoMapper:
+
+    protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
+    {
+        //Initialize AutoMapper
+        Mapper.Initialize(cfg => cfg.AddProfile<ProductProfile>());
+    }
