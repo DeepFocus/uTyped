@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/DeepFocus/uType.svg?branch=master)](https://travis-ci.org/DeepFocus/uType)
+
 This package helps you get read access to your Umbraco data in a strongly typed way.  
 This can be useful when you need to returns some of your content through an API controller for example.
 
@@ -75,7 +77,7 @@ All the methods can take a custom `Func<IPublishedContent, T>()` to allow you to
 
 ## Resolvers
 
-We've added a bunch of resolvers we often use to help you.  
+We've added a [bunch of resolvers](https://github.com/DeepFocus/uType/tree/master/uTyped/Resolvers) we often use to help you.  
 For example, if your product Model is upgraded to:
 
 	public class Product
