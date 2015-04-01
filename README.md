@@ -73,7 +73,7 @@ By default, `_repo.GetAll<T>()` creates the xPath using the name of the class. I
 	
 ## Using a different mapping
 
-All the methods can take a custom `Func<IPublishedContent, T>()` to allow you to skip AutoMapper if you fell like it.
+All the methods can take a custom `Func<IPublishedContent, T>()` to allow you to skip AutoMapper if you feel like it.
 
 ## Resolvers
 
@@ -85,7 +85,7 @@ For example, if your product Model is upgraded to:
         public int Id { get; set; }
         public string Name { get; set; }
         public string ShortName { get; set; }
-		public string[] Images { get; set; }
+        public string[] Images { get; set; }
     }
 	
 You will have to use the `MultiMediaResolver` for the `Images` property.  
