@@ -3,7 +3,7 @@ using System;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace NoName.Resolvers
+namespace uTyped.Resolvers
 {
     public class PropertyResolver : IValueResolver
     {

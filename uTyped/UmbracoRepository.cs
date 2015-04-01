@@ -5,7 +5,7 @@ using System.Linq;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace NoName
+namespace uTyped
 {
     public class UmbracoRepository
     {

@@ -7,8 +7,8 @@
     <ProjectGuid>{C7F48967-0DDF-463D-BB21-D1284369ABBB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NoName</RootNamespace>
-    <AssemblyName>NoName</AssemblyName>
+    <RootNamespace>uTyped</RootNamespace>
+    <AssemblyName>uTyped</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
