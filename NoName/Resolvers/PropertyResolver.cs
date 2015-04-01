@@ -9,9 +9,10 @@ namespace NoName.Resolvers
     {
         private string _propertyName;
 
-        public PropertyResolver()
-        {
-        }
+        /// <summary>
+        /// Default empty contructor because AutoMapper uses Activator.CreateInstance()
+        /// </summary>
+        public PropertyResolver() { }
 
         /// <summary>
         /// When the property name in the destination class doesn't match the property name in the Umbraco property, use this constructor
@@ -37,7 +38,7 @@ namespace NoName.Resolvers
                 return source.New(content.GetPropertyValue(_propertyName));
             }
 
-            var prop = typeof (IPublishedContent).GetProperty(_propertyName);
+            var prop = typeof(IPublishedContent).GetProperty(_propertyName);
             if (null != prop) //Last chance, if the property is part of the IPublishedContent object
             {
                 return source.New(prop.GetValue(content));

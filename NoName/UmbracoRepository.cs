@@ -1,10 +1,9 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
-using Umbraco.Core.Logging;
-using Umbraco.Web;
 using Umbraco.Core.Models;
+using Umbraco.Web;
 
 namespace NoName
 {
@@ -42,15 +41,26 @@ namespace NoName
             return collection.Select(mapper);
         }
 
-
         /// <summary>
         /// Returns typed elements from Umbraco mapped to the requested class
+        /// Mapping IPublishedContent to Type T is done using AutoMapper.
         /// </summary>
         /// <param name="ids">List of the elements Ids to retrieve</param>
         /// <returns></returns>
         public IEnumerable<T> GetById<T>(IEnumerable<int> ids)
         {
             return ids.Select(GetById<T>);
+        }
+
+        /// <summary>
+        /// Returns typed elements from Umbraco mapped to the requested class
+        /// </summary>
+        /// <param name="ids">List of the elements Ids to retrieve</param>
+        /// <param name="mapper">Function mapping the IPublishedContent to the expected out Type T</param>
+        /// <returns></returns>
+        public IEnumerable<T> GetById<T>(IEnumerable<int> ids, Func<IPublishedContent, T> mapper)
+        {
+            return ids.Select(id => GetById<T>(id, mapper));
         }
 
         /// <summary>
@@ -72,16 +82,7 @@ namespace NoName
         /// <returns></returns>
         public T GetById<T>(int id, Func<IPublishedContent, T> mapper)
         {
-            try
-            {
-                var content = _umbraco.TypedContent(id);
-                return mapper(content);
-            }
-            catch (Exception ex)
-            {
-                LogHelper.Error<T>(string.Empty, ex);
-                return default(T);
-            }
+            return mapper(_umbraco.TypedContent(id));
         }
     }
 }
