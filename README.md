@@ -103,7 +103,7 @@ Using the AutoMapper profile:
         protected override void Configure()
         {
             Mapper.CreateMap<IPublishedContent, Product>()
-                .ForMember(dest => dest.Images, opt => opt.ResolveUsing(new MediaResolver(_umbracoHelper)));
+                .ForMember(dest => dest.Images, opt => opt.ResolveUsing(new MultiMediaResolver(_umbracoHelper)));
 
             base.Configure();
         }
