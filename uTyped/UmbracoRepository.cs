@@ -25,7 +25,7 @@ namespace uTyped
         /// <returns></returns>
         public IEnumerable<T> GetAll<T>(string xPath = null)
         {
-            return GetAll<T>(Mapper.Map<T>, xPath);
+            return GetAll(Mapper.Map<T>, xPath);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace uTyped
         /// <returns></returns>
         public IEnumerable<T> GetById<T>(IEnumerable<int> ids, Func<IPublishedContent, T> mapper)
         {
-            return ids.Select(id => GetById<T>(id, mapper));
+            return ids.Select(id => GetById(id, mapper));
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace uTyped
         /// <returns></returns>
         public T GetById<T>(int id)
         {
-            return GetById<T>(id, Mapper.Map<T>);
+            return GetById(id, Mapper.Map<T>);
         }
 
         /// <summary>
