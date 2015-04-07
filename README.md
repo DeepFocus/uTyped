@@ -26,7 +26,10 @@ And then once the application has started, you can add the AutoMapper configurat
     protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
     {
         //Initialize AutoMapper
-        Mapper.Initialize(cfg => cfg.AddProfile<UmbracoProfile<Product>>());
+        Mapper.AddProfile<UmbracoProfile<Product>>();
+        
+        // Do not use the following line because it might break your back office:
+        // Mapper.Initialize(cfg => cfg.AddProfile<UmbracoProfile<Product>>());
     }
 	
 We are using a profile in this example but this isn't mandatory. You could as well create your map and add the resolver for all properties:
@@ -114,5 +117,5 @@ And once again initialize AutoMapper:
     protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
     {
         //Initialize AutoMapper
-        Mapper.Initialize(cfg => cfg.AddProfile<ProductProfile>());
+        Mapper.AddProfile<ProductProfile>();
     }
