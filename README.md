@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/DeepFocus/uTyped.svg?branch=master)](https://travis-ci.org/DeepFocus/uTyped)
 
-This package helps you get read access to your Umbraco data in a strongly typed way.  
+This package helps you get read access to your Umbraco data in strongly typed models.  
 This can be useful when you need to returns some of your content through an API controller for example.
 
 ## Get the package ##
