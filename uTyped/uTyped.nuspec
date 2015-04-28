@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/DeepFocus/uType</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Adding Search and a new resolver</releaseNotes>
+    <releaseNotes>Adding a trim to the default CsvPropertyResolver</releaseNotes>
     <tags>Umbraco Typed Content Repository Search</tags>
   </metadata>
 </package>

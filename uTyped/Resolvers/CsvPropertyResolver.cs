@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
@@ -37,7 +38,7 @@ namespace uTyped.Resolvers
                 var values = content.GetPropertyValue<string>(_propertyName);
                 if (!string.IsNullOrEmpty(values))
                 {
-                    return source.New(values.Split(','));
+                    return source.New(values.Split(',').Select(x=>x.Trim()));
                 }
             }
 
