@@ -6,11 +6,11 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <licenseUrl>https://github.com/DeepFocus/uType/blob/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/DeepFocus/uType</projectUrl>
+    <licenseUrl>https://github.com/DeepFocus/uTyped/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/DeepFocus/uTyped</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Adding a trim to the default CsvPropertyResolver</releaseNotes>
+    <releaseNotes>Improving search by adding the wildcard option and the default Umbraco node properties</releaseNotes>
     <tags>Umbraco Typed Content Repository Search</tags>
   </metadata>
 </package>

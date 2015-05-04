@@ -33,13 +33,13 @@ namespace uTyped.Resolvers
             _propertyName = _propertyName ?? source.Context.MemberName;
 
             var content = source.Context.SourceValue as IPublishedContent;
-            if (null != content && content.HasProperty(_propertyName))
+            if (null != content && null != content.GetProperty(_propertyName))
             {
                 return source.New(content.GetPropertyValue(_propertyName));
             }
 
-            var prop = typeof(IPublishedContent).GetProperty(_propertyName);
-            if (null != prop) //Last chance, if the property is part of the IPublishedContent object
+            var prop = source.Type.GetProperty(_propertyName);
+            if (null != prop) //Last chance, if the property is part of the object
             {
                 return source.New(prop.GetValue(content));
             }
