@@ -145,5 +145,16 @@ namespace uTyped
         {
             return _umbracoHelper.TypedSearch(term, useWildCards, searchProvider);
         }
+
+        /// <summary>
+        /// Search for the term and returns an IEnumerable of IPublishedContent
+        /// </summary>
+        /// <param name="criteria"></param>
+        /// <param name="searchProvider"></param>
+        /// <returns></returns>
+        public IEnumerable<IPublishedContent> Search(ISearchCriteria criteria, BaseSearchProvider searchProvider = null)
+        {
+            return _umbracoHelper.TypedSearch(criteria, searchProvider);
+        }
     }
 }

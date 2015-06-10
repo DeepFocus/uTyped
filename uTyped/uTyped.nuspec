@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/DeepFocus/uTyped</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Improving search by adding the wildcard option and the default Umbraco node properties</releaseNotes>
+    <releaseNotes>Allowing the simple search to be used with ISearchCriteria and BaseSearchProvider parameters</releaseNotes>
     <tags>Umbraco Typed Content Repository Search</tags>
   </metadata>
 </package>
