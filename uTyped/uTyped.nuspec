@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/DeepFocus/uTyped</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Allowing the simple search to be used with ISearchCriteria and BaseSearchProvider parameters</releaseNotes>
+    <releaseNotes>Adding the Get() method that return a single element</releaseNotes>
     <tags>Umbraco Typed Content Repository Search</tags>
   </metadata>
 </package>

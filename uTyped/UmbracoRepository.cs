@@ -17,6 +17,18 @@ namespace uTyped
         }
 
         /// <summary>
+        /// Returns strongly typed element for which the class name matches the type in Umbraco.
+        /// xPath parameter can be used to specify a different XPath.
+        /// Mapping IPublishedContent to Type T is done using AutoMapper.
+        /// </summary>
+        /// <param name="xPath">Path to the node. If not provided, the output class name is used</param>
+        /// <returns></returns>
+        public T Get<T>(string xPath = null)
+        {
+            return Get(Mapper.Map<T>, xPath);
+        }
+
+        /// <summary>
         /// Returns strongly typed elements for which the class name matches the type in Umbraco.
         /// xPath parameter can be used to specify a different XPath.
         /// Mapping IPublishedContent to Type T is done using AutoMapper.
@@ -26,6 +38,19 @@ namespace uTyped
         public IEnumerable<T> GetAll<T>(string xPath = null)
         {
             return GetAll(Mapper.Map<T>, xPath);
+        }
+
+        /// <summary>
+        /// Returns a strongly typed element for which the class name matches the type in Umbraco.
+        /// xPath parameter can be used to specify a different XPath.
+        /// </summary>
+        /// <param name="mapper">Function mapping the IPublishedContent to the expected out Type T</param>
+        /// <param name="xPath">Path to the node. If not provided, the output class name is used</param>
+        /// <returns></returns>
+        public T Get<T>(Func<IPublishedContent, T> mapper, string xPath = null)
+        {
+            var node = _umbraco.TypedContentSingleAtXPath(xPath ?? string.Format("//{0}", typeof(T).Name));
+            return mapper(node);
         }
 
         /// <summary>
