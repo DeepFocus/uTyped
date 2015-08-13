@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/DeepFocus/uTyped</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Adding the Get() method that return a single element</releaseNotes>
+    <releaseNotes>ContentPickerResolver is now public</releaseNotes>
     <tags>Umbraco Typed Content Repository Search</tags>
   </metadata>
 </package>

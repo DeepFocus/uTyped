@@ -4,7 +4,7 @@ using Umbraco.Web;
 
 namespace uTyped.Resolvers
 {
-    class ContentPickerResolver : IValueResolver
+    public class ContentPickerResolver : IValueResolver
     {
         private readonly UmbracoHelper _umbracoHelper;
         private string _propertyName;
