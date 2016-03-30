@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/DeepFocus/uTyped</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Adding a generic ContentPickerResolver + making a base class for the resolvers using the umbracoHelper</releaseNotes>
+    <releaseNotes>Fix a bug on the ContentPickerResolver (returning a null object)</releaseNotes>
     <tags>Umbraco Typed Content Repository Search</tags>
   </metadata>
 </package>

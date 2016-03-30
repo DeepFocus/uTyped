@@ -24,7 +24,7 @@ namespace uTyped.Resolvers
                 var id = content.GetPropertyValue<string>(PropertyName);
                 if (!string.IsNullOrWhiteSpace(id))
                 {
-                    source = source.New(UmbracoHelper.TypedContent(id));
+                    return source.New(UmbracoHelper.TypedContent(id));
                 }
             }
 
@@ -52,7 +52,7 @@ namespace uTyped.Resolvers
                 var id = content.GetPropertyValue<string>(PropertyName);
                 if (!string.IsNullOrWhiteSpace(id))
                 {
-                    source = source.New(Mapper.Map<T>(UmbracoHelper.TypedContent(id)));
+                    return source.New(Mapper.Map<T>(UmbracoHelper.TypedContent(id)));
                 }
             }
 
