@@ -5,37 +5,53 @@ using Umbraco.Web;
 
 namespace uTyped.Resolvers
 {
-    public class MultiContentPickerResolver<T> : IValueResolver
+    public class MultiContentPickerResolver : BaseResolver
     {
-        private readonly UmbracoHelper _umbracoHelper;
-        private string _propertyName;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="umbracoHelper"></param>
-        /// <param name="propertyName"></param>
         public MultiContentPickerResolver(UmbracoHelper umbracoHelper, string propertyName = null)
-        {
-            _umbracoHelper = umbracoHelper;
-            _propertyName = propertyName;
-        }
+            : base(umbracoHelper, propertyName) { }
 
         /// <summary>
         /// Returns the list of typed content linked to the source.
         /// </summary>
         /// <param name="source"></param>
-        public ResolutionResult Resolve(ResolutionResult source)
+        public override ResolutionResult Resolve(ResolutionResult source)
         {
-            _propertyName = _propertyName ?? source.Context.MemberName;
+            PropertyName = PropertyName ?? source.Context.MemberName;
             var content = source.Context.SourceValue as IPublishedContent;
 
-            if (null != content && content.HasProperty(_propertyName))
+            if (null != content && content.HasProperty(PropertyName))
             {
-                var ids = content.GetPropertyValue<string>(_propertyName);
+                var ids = content.GetPropertyValue<string>(PropertyName);
                 if (!string.IsNullOrWhiteSpace(ids))
                 {
-                    return source.New(Mapper.Map<IEnumerable<T>>(_umbracoHelper.TypedContent(ids.Split(','))));
+                    return source.New(UmbracoHelper.TypedContent(ids.Split(',')));
+                }
+            }
+
+            return source.New(null);
+        }
+    }
+
+    public class MultiContentPickerResolver<T> : BaseResolver
+    {
+        public MultiContentPickerResolver(UmbracoHelper umbracoHelper, string propertyName = null)
+            : base(umbracoHelper, propertyName) { }
+
+        /// <summary>
+        /// Returns the list of typed content linked to the source.
+        /// </summary>
+        /// <param name="source"></param>
+        public override ResolutionResult Resolve(ResolutionResult source)
+        {
+            PropertyName = PropertyName ?? source.Context.MemberName;
+            var content = source.Context.SourceValue as IPublishedContent;
+
+            if (null != content && content.HasProperty(PropertyName))
+            {
+                var ids = content.GetPropertyValue<string>(PropertyName);
+                if (!string.IsNullOrWhiteSpace(ids))
+                {
+                    return source.New(Mapper.Map<IEnumerable<T>>(UmbracoHelper.TypedContent(ids.Split(','))));
                 }
             }
 

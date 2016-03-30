@@ -4,33 +4,55 @@ using Umbraco.Web;
 
 namespace uTyped.Resolvers
 {
-    public class ContentPickerResolver : IValueResolver
+    public class ContentPickerResolver : BaseResolver
     {
-        private readonly UmbracoHelper _umbracoHelper;
-        private string _propertyName;
-
-        public ContentPickerResolver(UmbracoHelper UmbracoHelper, string PropertyName = null)
-        {
-            _umbracoHelper = UmbracoHelper;
-            _propertyName = PropertyName;
-        }
+        public ContentPickerResolver(UmbracoHelper umbracoHelper, string propertyName = null)
+            : base(umbracoHelper, propertyName) { }
 
         /// <summary>
         /// Returns the typed content linked to the source.
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
-        public ResolutionResult Resolve(ResolutionResult source)
+        public override ResolutionResult Resolve(ResolutionResult source)
         {
-            _propertyName = _propertyName ?? source.Context.MemberName;
+            PropertyName = PropertyName ?? source.Context.MemberName;
             var content = source.Context.SourceValue as IPublishedContent;
 
-            if (null != content && content.HasProperty(_propertyName))
+            if (null != content && content.HasProperty(PropertyName))
             {
-                var id = content.GetPropertyValue<string>(_propertyName);
+                var id = content.GetPropertyValue<string>(PropertyName);
                 if (!string.IsNullOrWhiteSpace(id))
                 {
-                    source = source.New(_umbracoHelper.TypedContent(id));
+                    source = source.New(UmbracoHelper.TypedContent(id));
+                }
+            }
+
+            return source.New(null);
+        }
+    }
+
+    public class ContentPickerResolver<T> : BaseResolver
+    {
+        public ContentPickerResolver(UmbracoHelper umbracoHelper, string propertyName = null)
+            : base(umbracoHelper, propertyName) { }
+
+        /// <summary>
+        /// Returns the typed content depending on the type parameter linked to the source.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public override ResolutionResult Resolve(ResolutionResult source)
+        {
+            PropertyName = PropertyName ?? source.Context.MemberName;
+            var content = source.Context.SourceValue as IPublishedContent;
+
+            if (null != content && content.HasProperty(PropertyName))
+            {
+                var id = content.GetPropertyValue<string>(PropertyName);
+                if (!string.IsNullOrWhiteSpace(id))
+                {
+                    source = source.New(Mapper.Map<T>(UmbracoHelper.TypedContent(id)));
                 }
             }
 

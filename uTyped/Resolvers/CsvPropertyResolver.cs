@@ -11,6 +11,7 @@ namespace uTyped.Resolvers
 
         /// <summary>
         /// Default empty contructor because AutoMapper uses Activator.CreateInstance()
+        /// See: http://nicolas.guelpa.me/blog/2015/03/29/c-sharp-constructor.html
         /// </summary>
         public CsvPropertyResolver() { }
 
